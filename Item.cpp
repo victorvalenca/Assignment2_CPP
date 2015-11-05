@@ -14,9 +14,10 @@ Purpose:				The Item class holds information for an item an Account
 						object may hold. It contains a description, price, and
 						reports itself when called.
 ******************************************************************************/
-#include "Item.h"
 #include <iostream>
+
 using namespace std;
+#include "Item.h"
 
 /******************************************************************************
 Function Name:			Item::Item()
@@ -38,9 +39,10 @@ Item::Item(char* desc, double p) {
 }
 
 ostream& operator<<(ostream& os, Item& it) {
-	os << it.description << " , Cost: $" << it.price;
+	cout << it.description << " , Cost: $" << it.price;
 	return os;
 }
+
 
 /******************************************************************************
 Function Name:			Item::~Item()
@@ -52,4 +54,10 @@ Author:					Victor Fernandes
 ******************************************************************************/
 Item::~Item(){
 	delete description;
+}
+
+Item::Item(Item &it) {
+	this->description = new char[strlen(it.description)];
+	strcpy(description, it.description);
+	this->price = it.price;
 }

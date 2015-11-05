@@ -14,11 +14,12 @@ Purpose:				The FleaBay class is used to manage Accounts and their
 						list of Items, authenticate, and generate
 						database reports.
 ******************************************************************************/
+#include <iostream>
+using namespace std;
+
 #include "Item.h"
 #include "Account.h"
 #include "FleaBay.h"
-#include <iostream>
-using namespace std;
 
 /******************************************************************************
 Function Name:		FleaBay::FleaBay()
@@ -33,28 +34,29 @@ FleaBay::FleaBay(){
 	accounts = nullptr;
 }
 
+Account FleaBay::operator[](char* id) {
+	for (unsigned int i = 0; i < numAccounts; i++){
+		if (!strcmp(accounts[i]->getID(), id)){
+			return *accounts[i];
+		}
+	}
+	return Account();
+	
+}
+
 ostream& operator<<(ostream& os ,FleaBay& f) {
 	if (f.numAccounts) {
 		for (unsigned int i = 0; i < f.numAccounts; i++){
-				os << "Account ID: " << f.accounts[i]->getID() << endl
-					 << f.accounts[i];
+				cout << "Account ID: " << f.accounts[i]->getID() << endl
+					 << *f.accounts[i];
 		}
 	}
 	else {
-		os << "** NO ACCOUNTS **" << endl;
+		cout << "** NO ACCOUNTS **" << endl;
 	}
 	return os;
 }
 
-Account FleaBay::operator[](char* acc) {
-	for (unsigned int i = 0; i < numAccounts; i++){
-		if (!strcmp(accounts[i]->getID(), acc)){
-			return *accounts[i];
-		}
-	}
-	return;
-
-}
 
 /******************************************************************************
 Function Name:		FleaBay::Login()

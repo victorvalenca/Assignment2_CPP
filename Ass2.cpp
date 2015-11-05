@@ -1,8 +1,9 @@
+#include <iostream>
+using namespace std;
+
 #include "Item.h"
 #include "Account.h"
 #include "FleaBay.h"
-#include <iostream>
-using namespace std;
 
 int main(void)
 {

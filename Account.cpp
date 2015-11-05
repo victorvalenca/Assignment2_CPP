@@ -14,10 +14,12 @@ Purpose:				The Account class manages its own list of items for
 						every instantiated object, as well as reporting its
 						information when FleaBay requests it.
 ******************************************************************************/
-#include "Item.h"
-#include "Account.h"
 #include <iostream>
 using namespace std;
+#include "Item.h"
+#include "Account.h"
+
+
 
 /******************************************************************************
 Function Name:			Account::Account()
@@ -42,17 +44,16 @@ Account::Account(char* usr, char* passwd){
 	items = nullptr;
 }
 
-ostream& operator<<(ostream& os, Account& a){
-	for (unsigned int i = 0; i < a.getNumItems(); i++){
-		os << " Item " << i+1 << ":\t" << a.items[i];
-	}
-	return os;
-}
-
-char*& getPassWord() {
+char*& Account::getPassWord() {
 	return PassWord;
 }
 
+ostream& operator<<(ostream& os, Account& a){
+	for (unsigned int i = 0; i < a.getnumItems(); i++){
+		cout << " Item " << i+1 << ":\t" << *a.items[i];
+	}
+	return os;
+}
 
 /******************************************************************************
 Function Name:			Account::AddItem()
@@ -152,8 +153,31 @@ Account::~Account(){
 		for (unsigned int i = 0; i < numItems; i++){
 			delete items[i];
 		}
+		delete[] items;
 	}
-	delete[] items;
 	delete ID;
 	delete PassWord;
+}
+
+Account::Account(Account& obj) {
+
+	this->numItems = obj.numItems;
+	this->ID = new char[strlen(obj.ID)];
+	this->PassWord = new char[strlen(obj.PassWord)];
+
+	strcpy(ID, obj.ID);
+	strcpy(PassWord, obj.PassWord);
+
+	if (obj.numItems){
+		this->items = new pItem[obj.numItems];
+		for (unsigned int i = 0; i < obj.numItems; i++) {
+			this->items[i] = new Item(*obj.items[i]);
+		}
+		
+	}
+	else {
+		this->items = nullptr;
+	}
+
+
 }
