@@ -1,6 +1,6 @@
 /******************************************************************************
 Filename:				FleaBay.cpp
-Version:				2.0
+Version:				2.1
 Author:					Victor Fernandes
 Student No.:			040772243
 Course Name/Number:		CST8219 - C++ Programming
@@ -34,6 +34,13 @@ FleaBay::FleaBay(){
 	accounts = nullptr;
 }
 
+/******************************************************************************
+Function Name:			FleaBay::operator[]
+Purpose:				char*
+Out Parameters:			Account*
+Version:				1.0
+Author:					Victor Fernandes
+******************************************************************************/
 Account FleaBay::operator[](char* id) {
 	for (unsigned int i = 0; i < numAccounts; i++){
 		if (!strcmp(accounts[i]->getID(), id)){
@@ -44,6 +51,14 @@ Account FleaBay::operator[](char* id) {
 	
 }
 
+/******************************************************************************
+Function Name:			operator<<
+Purpose:				Overloaded << operator for std::ostream
+In Parameters:			ostream&, FleaBay&
+Out Parameters:			ostream&
+Version:				1.0
+Author:					Victor Fernandes
+******************************************************************************/
 ostream& operator<<(ostream& os ,FleaBay& f) {
 	if (f.numAccounts) {
 		for (unsigned int i = 0; i < f.numAccounts; i++){
@@ -60,11 +75,11 @@ ostream& operator<<(ostream& os ,FleaBay& f) {
 
 /******************************************************************************
 Function Name:		FleaBay::Login()
-Purpose:			Secondary selection menu to allow the user to add or
-					manage their own account.
+Purpose:			Secondary selection menu to allow the user to add multiple
+					items and manage their own account.
 In Parameters:		N/A
 Out Parameters:		Boolean
-Version:			1.0
+Version:			1.1
 Author:				Victor Fernandes
 ******************************************************************************/
 bool FleaBay::Login(){

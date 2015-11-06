@@ -1,6 +1,6 @@
 /******************************************************************************
 Filename:				Account.cpp
-Version:				1.0
+Version:				2.1
 Author:					Victor Fernandes
 Student No.:			040772243
 Course Name/Number:		CST8219 - C++ Programming
@@ -37,6 +37,16 @@ Account::Account(){
 	items = nullptr;
 }
 
+/******************************************************************************
+Function Name:			Account::Account()
+Purpose:				Constructor for the Account object to be used with its
+						respective Account object that takes in parameters for
+						creation.
+In Parameters:			char*, char*
+Out Parameters:			N/A
+Version:				1.0
+Author:					Victor Fernandes
+******************************************************************************/
 Account::Account(char* usr, char* passwd){
 	numItems = 0;
 	ID = new char[strlen(usr)+1];
@@ -46,10 +56,53 @@ Account::Account(char* usr, char* passwd){
 	items = nullptr;
 }
 
+/******************************************************************************
+Function Name:			Account::Account()
+Purpose:				Copy constructor for Account
+In Parameters:			Account&
+Out Parameters:			N/A
+Version:				1.0
+Author:					Victor Fernandes
+******************************************************************************/
+Account::Account(Account& obj) {
+	this->numItems = obj.numItems;
+	this->ID = new char[strlen(obj.ID)+1];
+	this->PassWord = new char[strlen(obj.PassWord)+1];
+
+	strcpy(ID, obj.ID);
+	strcpy(PassWord, obj.PassWord);
+
+	if (obj.numItems){
+		this->items = new pItem[obj.numItems];
+		for (unsigned int i = 0; i < obj.numItems; i++) {
+			this->items[i] = new Item(*obj.items[i]);
+		}
+	}
+	else {
+		this->items = nullptr;
+	}
+}
+
+/******************************************************************************
+Function Name:			Account::getPassWord()
+Purpose:				Return a reference to the PassWord data member
+In Parameters:			N/A
+Out Parameters:			char*&
+Version:				1.0
+Author:					Victor Fernandes
+******************************************************************************/
 char*& Account::getPassWord() {
 	return PassWord;
 }
 
+/******************************************************************************
+Function Name:			operator<<
+Purpose:				Overloaded << operator for std::ostream
+In Parameters:			ostream&, Account&
+Out Parameters:			ostream&
+Version:				1.0
+Author:					Victor Fernandes
+******************************************************************************/
 ostream& operator<<(ostream& os, Account& a){
 	for (unsigned int i = 0; i < a.getnumItems(); i++){
 		os << " Item " << i+1 << ": " << *a.items[i] << endl;
@@ -59,7 +112,7 @@ ostream& operator<<(ostream& os, Account& a){
 
 /******************************************************************************
 Function Name:			Account::AddItem()
-Purpose:				Prompts the user to add an item to the Account's Item
+Purpose:				Prompts the user to add multiple items to the Account's Item
 						storage list. It checks for proper price value and has
 						an option to abort the process if desired.
 In Parameters:			N/A
@@ -177,25 +230,3 @@ Account::~Account(){
 	delete PassWord;
 }
 
-Account::Account(Account& obj) {
-
-	this->numItems = obj.numItems;
-	this->ID = new char[strlen(obj.ID)+1];
-	this->PassWord = new char[strlen(obj.PassWord)+1];
-
-	strcpy(ID, obj.ID);
-	strcpy(PassWord, obj.PassWord);
-
-	if (obj.numItems){
-		this->items = new pItem[obj.numItems];
-		for (unsigned int i = 0; i < obj.numItems; i++) {
-			this->items[i] = new Item(*obj.items[i]);
-		}
-		
-	}
-	else {
-		this->items = nullptr;
-	}
-
-
-}
