@@ -39,8 +39,10 @@ Account::Account(){
 
 Account::Account(char* usr, char* passwd){
 	numItems = 0;
-	ID = usr;
-	PassWord = passwd;
+	ID = new char[strlen(usr)+1];
+	PassWord = new char[strlen(passwd)+1];
+	strcpy(ID, usr);
+	strcpy(PassWord, passwd);
 	items = nullptr;
 }
 
@@ -50,7 +52,7 @@ char*& Account::getPassWord() {
 
 ostream& operator<<(ostream& os, Account& a){
 	for (unsigned int i = 0; i < a.getnumItems(); i++){
-		cout << " Item " << i+1 << ":\t" << *a.items[i];
+		os << " Item " << i+1 << ": " << *a.items[i] << endl;
 	}
 	return os;
 }
@@ -68,71 +70,87 @@ Author:					Victor Fernandes
 void Account::AddItem(){
 
 	if (numItems){
-		cout << "These are your items for sale:" << items;
+		cout << "These are your items for sale:" << this << endl;
 	} else{
 		cout << "No items in your account." << endl;
 	}
-	char user_select;
-	cout << "Would you like to add another item? (y/N)" << endl;
 
-	fflush(stdin);
-	cin >> user_select;
-	if (toupper(user_select) == 'Y'){
-		char desc_buffer[100] = {'\0'};
-		double price_buffer;
-		cout << "Enter the new Item description: ";
+	// Set up check for multiple items
+	bool bContinue = true;
+
+	while (bContinue){
+		char user_select;
+		
+		if (numItems){
+			cout << "Would you like to add another item? (y/N): ";
+		}
+		else {
+			cout << "Would you like to add an item? (y/N): ";
+		}
+
 		fflush(stdin);
-		cin.getline(desc_buffer, 100);
+		cin >> user_select;
 
-		// Set up condition checks
-		bool price_ok = false;
-		bool cancelled = false;
-		
-		// Will continue to run until user gives up or enters a proper value for price
-		while (!price_ok || cancelled){
-			cout << "\nEnter the item price (or -1.0 to cancel): ";
+		if (toupper(user_select) == 'Y'){
+			char desc_buffer[100] = {'\0'};
+			double price_buffer;
+			cout << "Enter the new Item description: ";
 			fflush(stdin);
-			cin >> price_buffer;
+			cin.getline(desc_buffer, 100);
 
-			if (!cin.good()){
-				cin.clear();
-				cin.ignore(128,'\n');
-				cout << endl << "Incorrect value. Try again with a proper number";
-				continue;
-			}
-			
-			if (price_buffer == -1.0){
-				cancelled = true;
-				break; // Break out of loop and cancel
-			}
-
-			price_ok = true;
-
-		}
-
-		if (cancelled){
-			return; //Check if user cancelled item entry and exit function if so
-		} 
-
+			// Set up condition checks
+			bool price_ok = false;
+			bool cancelled = false;
 		
-		char* description = new char[strlen(desc_buffer)+1];
-		double price = price_buffer;
-		strcpy(description, desc_buffer);
-		Item *newItem = new Item(description, price);
+			// Will continue to run until user gives up or enters a proper value for price
+			while (!price_ok || cancelled){
+				cout << "\nEnter the item price (or -1.0 to cancel): ";
+				fflush(stdin);
+				cin >> price_buffer;
 
-		ppItem newItems = new pItem[numItems+1];
-
-		if (items == nullptr){
-			items = newItems;
-		} else {
-			for (unsigned int i = 0; i < numItems; i++) {
-					newItems[i] = items[i];
+				if (!cin.good()){
+					cin.clear();
+					cin.ignore(128,'\n');
+					cout << endl << "Incorrect value. Try again with a proper number";
+					continue;
 				}
-			delete[] items;
-			items = newItems;
-		}
-		items[numItems++] = newItem;
+			
+				if (price_buffer == -1.0){
+					cancelled = true;
+					break; // Break out of loop and cancel
+				}
+
+				price_ok = true;
+
+			}
+
+			if (cancelled){
+				return; //Check if user cancelled item entry and exit function if so
+			} 
+
 		
+			char* description = new char[strlen(desc_buffer)+1];
+			double price = price_buffer;
+			strcpy(description, desc_buffer);
+			Item *newItem = new Item(description, price);
+
+			ppItem newItems = new pItem[numItems+1];
+
+			if (items == nullptr){
+				items = newItems;
+			} else {
+				for (unsigned int i = 0; i < numItems; i++) {
+						newItems[i] = items[i];
+					}
+				delete[] items;
+				items = newItems;
+			}
+			items[numItems++] = newItem;
+		
+		}
+		else {
+			bContinue = false; // Exit out of item creation
+		}
 	}
 
 }
@@ -162,8 +180,8 @@ Account::~Account(){
 Account::Account(Account& obj) {
 
 	this->numItems = obj.numItems;
-	this->ID = new char[strlen(obj.ID)];
-	this->PassWord = new char[strlen(obj.PassWord)];
+	this->ID = new char[strlen(obj.ID)+1];
+	this->PassWord = new char[strlen(obj.PassWord)+1];
 
 	strcpy(ID, obj.ID);
 	strcpy(PassWord, obj.PassWord);

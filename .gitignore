@@ -4,6 +4,15 @@
 *.o
 *.obj
 
+# Project & Debug  files
+*.vcxproj*
+*.debug
+*.tlog
+*.log
+*.lastbuildstate
+*.pdb
+*.idb
+
 # Precompiled Headers
 *.gch
 *.pch

@@ -34,12 +34,13 @@ Item::Item(){
 }
 
 Item::Item(char* desc, double p) {
-	description = desc;
-	price = p;
+	this->description = new char[strlen(desc)+1];
+	strcpy(description, desc);
+	this->price = p;
 }
 
 ostream& operator<<(ostream& os, Item& it) {
-	cout << it.description << " , Cost: $" << it.price;
+	os << it.description << " , Cost: $" << it.price;
 	return os;
 }
 
@@ -57,7 +58,7 @@ Item::~Item(){
 }
 
 Item::Item(Item &it) {
-	this->description = new char[strlen(it.description)];
+	this->description = new char[strlen(it.description)+1];
 	strcpy(description, it.description);
 	this->price = it.price;
 }

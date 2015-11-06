@@ -47,12 +47,12 @@ Account FleaBay::operator[](char* id) {
 ostream& operator<<(ostream& os ,FleaBay& f) {
 	if (f.numAccounts) {
 		for (unsigned int i = 0; i < f.numAccounts; i++){
-				cout << "Account ID: " << f.accounts[i]->getID() << endl
+				os << "Account ID: " << f.accounts[i]->getID() << endl
 					 << *f.accounts[i];
 		}
 	}
 	else {
-		cout << "** NO ACCOUNTS **" << endl;
+		os << "** NO ACCOUNTS **" << endl;
 	}
 	return os;
 }
@@ -82,10 +82,10 @@ bool FleaBay::Login(){
 	cin >> user_select;
 
 	switch(user_select) {
-	case '1': //TODO: Add New Account
+	case '1':
 		if (!AddNewAccount()){}
 		break;
-	case '2': //TODO: Account Management
+	case '2':
 		if(!numAccounts){
 			cout << "There are no accounts." << endl;
 			break;
