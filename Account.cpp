@@ -112,34 +112,33 @@ ostream& operator<<(ostream& os, Account& a){
 
 /******************************************************************************
 Function Name:			Account::AddItem()
-Purpose:				Prompts the user to add multiple items to the Account's Item
-						storage list. It checks for proper price value and has
-						an option to abort the process if desired.
+Purpose:				Prompts the user to add multiple items to the Account's
+						Item storage list. It checks for proper price value and
+						has an option to abort the process if desired. It also 
+						lets the user change their password.
 In Parameters:			N/A
 Out Parameters:			N/A
-Version:				1.0
+Version:				1.1
 Author:					Victor Fernandes
 ******************************************************************************/
 void Account::AddItem(){
-
-	if (numItems){
-		cout << "These are your items for sale:" << this << endl;
-	} else{
-		cout << "No items in your account." << endl;
-	}
 
 	// Set up check for multiple items
 	bool bContinue = true;
 
 	while (bContinue){
+		if (numItems){
+			cout << "*******************************" << endl
+			     << "These are your items for sale: " << endl 
+				 << " " << *this;
+		} else{
+			cout << "No items in your account." << endl;
+		}
 		char user_select;
 		
-		if (numItems){
-			cout << "Would you like to add another item? (y/N): ";
-		}
-		else {
-			cout << "Would you like to add an item? (y/N): ";
-		}
+		cout << "(P) Change password" << endl
+		     << "(Y) Add an item" << endl
+			 << "(Any key) Return to previous menu" << endl;
 
 		fflush(stdin);
 		cin >> user_select;
@@ -155,7 +154,7 @@ void Account::AddItem(){
 			bool price_ok = false;
 			bool cancelled = false;
 		
-			// Will continue to run until user gives up or enters a proper value for price
+			// Will continue to run until user gives up or enters a proper price
 			while (!price_ok || cancelled){
 				cout << "\nEnter the item price (or -1.0 to cancel): ";
 				fflush(stdin);
@@ -201,8 +200,29 @@ void Account::AddItem(){
 			items[numItems++] = newItem;
 		
 		}
+		else if (toupper(user_select) == 'P'){
+			char passwd_buffer[80] = {'\0'};
+
+			cout << "Please enter the new password: ";
+			fflush(stdin);
+			cin.getline(passwd_buffer, 80);
+
+			while (!strcmp(this->getPassWord(), passwd_buffer)) {
+				cout << "*** This password is identical to your current one." << endl
+				     << "Please enter a different password: ";
+				fflush(stdin);
+				cin.getline(passwd_buffer, 80);
+			}
+
+			delete this->PassWord;
+			this->PassWord = new char[strlen(passwd_buffer)+1];
+			strcpy(this->PassWord, passwd_buffer);
+
+			cout << "Password change successful." << endl;
+
+		}
 		else {
-			bContinue = false; // Exit out of item creation
+			bContinue = false; // Exit out of menu
 		}
 	}
 

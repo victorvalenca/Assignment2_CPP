@@ -63,7 +63,7 @@ ostream& operator<<(ostream& os ,FleaBay& f) {
 	if (f.numAccounts) {
 		for (unsigned int i = 0; i < f.numAccounts; i++){
 				os << "Account ID: " << f.accounts[i]->getID() << endl
-					 << *f.accounts[i];
+					 << *f.accounts[i] << endl;
 		}
 	}
 	else {
@@ -90,9 +90,9 @@ bool FleaBay::Login(){
 	bool user_check = true;
 	bool found = false;
 
-	cout << "1. Add a new Account" << endl;
-	cout << "2. Open an existing Account" << endl;
-	cout << "3. Return to main menu" << endl;
+	cout << "1. Add a new Account" << endl
+	     << "2. Open an existing Account" << endl
+	     << "3. Return to main menu" << endl;
 	fflush(stdin);
 	cin >> user_select;
 

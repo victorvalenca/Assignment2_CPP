@@ -15,9 +15,11 @@ Purpose:				The Item class holds information for an item an Account
 						reports itself when called.
 ******************************************************************************/
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 #include "Item.h"
+
 
 /******************************************************************************
 Function Name:			Item::Item()
@@ -72,7 +74,8 @@ Version:				1.0
 Author:					Victor Fernandes
 ******************************************************************************/
 ostream& operator<<(ostream& os, Item& it) {
-	os << it.description << " , Cost: $" << it.price;
+	os << setiosflags(ios::fixed | ios::showpoint)
+		<< it.description << ", Cost: $" << setprecision(2) << it.price;
 	return os;
 }
 
