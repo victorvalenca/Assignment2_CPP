@@ -36,7 +36,8 @@ FleaBay::FleaBay(){
 
 /******************************************************************************
 Function Name:			FleaBay::operator[]
-Purpose:				char*
+Purpose:				Overloaded [] operator
+In Parameters:			char*
 Out Parameters:			Account*
 Version:				1.0
 Author:					Victor Fernandes
