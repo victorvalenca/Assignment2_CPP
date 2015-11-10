@@ -1,18 +1,18 @@
 /******************************************************************************
-Filename:				FleaBay.cpp
-Version:				2.1
-Author:					Victor Fernandes
+Filename:			FleaBay.cpp
+Version:			2.1
+Author:				Victor Fernandes
 Student No.:			040772243
 Course Name/Number:		CST8219 - C++ Programming
 Lab Section:			302
 Assignment #:			2
 Assignment Name:		FleaBay in C++
-Due Date:				October 22, 2015
+Due Date:			October 22, 2015
 Submission Date:		October 21, 2015
-Professor:				Andrew Tyler
-Purpose:				The FleaBay class is used to manage Accounts and their
-						list of Items, authenticate, and generate
-						database reports.
+Professor:			Andrew Tyler
+Purpose:			The FleaBay class is used to manage Accounts and their
+				list of Items, authenticate, and generate
+				database reports.
 ******************************************************************************/
 #include <iostream>
 using namespace std;
@@ -22,10 +22,10 @@ using namespace std;
 #include "FleaBay.h"
 
 /******************************************************************************
-Function Name:		FleaBay::FleaBay()
+Function Name:			FleaBay::FleaBay()
 Purpose:			Constructor for the FleaBay database.
-In Parameters:		N/A
-Out Parameters:		N/A
+In Parameters:			N/A
+Out Parameters:			N/A
 Version:			1.0
 Author:				Victor Fernandes
 ******************************************************************************/
@@ -36,11 +36,11 @@ FleaBay::FleaBay(){
 
 /******************************************************************************
 Function Name:			FleaBay::operator[]
-Purpose:				Overloaded [] operator
+Purpose:			Overloaded [] operator
 In Parameters:			char*
 Out Parameters:			Account*
-Version:				1.0
-Author:					Victor Fernandes
+Version:			1.0
+Author:				Victor Fernandes
 ******************************************************************************/
 Account FleaBay::operator[](char* id) {
 	for (unsigned int i = 0; i < numAccounts; i++){
@@ -54,11 +54,11 @@ Account FleaBay::operator[](char* id) {
 
 /******************************************************************************
 Function Name:			operator<<
-Purpose:				Overloaded << operator for std::ostream
+Purpose:			Overloaded << operator for std::ostream
 In Parameters:			ostream&, FleaBay&
 Out Parameters:			ostream&
-Version:				1.0
-Author:					Victor Fernandes
+Version:			1.0
+Author:				Victor Fernandes
 ******************************************************************************/
 ostream& operator<<(ostream& os ,FleaBay& f) {
 	if (f.numAccounts) {
@@ -75,11 +75,11 @@ ostream& operator<<(ostream& os ,FleaBay& f) {
 
 
 /******************************************************************************
-Function Name:		FleaBay::Login()
+Function Name:			FleaBay::Login()
 Purpose:			Secondary selection menu to allow the user to add multiple
-					items and manage their own account.
-In Parameters:		N/A
-Out Parameters:		Boolean
+				items and manage their own account.
+In Parameters:			N/A
+Out Parameters:			Boolean
 Version:			1.1
 Author:				Victor Fernandes
 ******************************************************************************/
@@ -148,11 +148,11 @@ bool FleaBay::Login(){
 }
 
 /******************************************************************************
-Function Name:		FleaBay::AddNewAccount()
+Function Name:			FleaBay::AddNewAccount()
 Purpose:			Prompts the user for account login information and
-					prepares the database to add a new account.
-In Parameters:		N/A
-Out Parameters:		Boolean
+				prepares the database to add a new account.
+In Parameters:			N/A
+Out Parameters:			Boolean
 Version:			1.0
 Author:				Victor Fernandes
 ******************************************************************************/
@@ -204,12 +204,12 @@ bool FleaBay::AddNewAccount(){
 }
 
 /******************************************************************************
-Function Name:		FleaBay::~FleaBay()
+Function Name:			FleaBay::~FleaBay()
 Purpose:			Destructor for the FleaBay database. It iterates through
-					its account list and deletes them, followed by the list
-					itself.
-In Parameters:		N/A
-Out Parameters:		N/A
+				its account list and deletes them, followed by the list
+				itself.
+In Parameters:			N/A
+Out Parameters:			N/A
 Version:			1.0
 Author:				Victor Fernandes
 ******************************************************************************/

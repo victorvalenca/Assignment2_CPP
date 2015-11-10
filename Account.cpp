@@ -1,18 +1,18 @@
 /******************************************************************************
-Filename:				Account.cpp
-Version:				2.1
-Author:					Victor Fernandes
+Filename:			Account.cpp
+Version:			2.1
+Author:				Victor Fernandes
 Student No.:			040772243
 Course Name/Number:		CST8219 - C++ Programming
 Lab Section:			302
 Assignment #:			1
 Assignment Name:		FleaBay in C++
-Due Date:				October 19, 2015
+Due Date:			October 19, 2015
 Submission Date:		October 19, 2015
-Professor:				Andrew Tyler
-Purpose:				The Account class manages its own list of items for
-						every instantiated object, as well as reporting its
-						information when FleaBay requests it.
+Professor:			Andrew Tyler
+Purpose:			The Account class manages its own list of items for
+				every instantiated object, as well as reporting its
+				information when FleaBay requests it.
 ******************************************************************************/
 #include <iostream>
 using namespace std;
@@ -23,12 +23,12 @@ using namespace std;
 
 /******************************************************************************
 Function Name:			Account::Account()
-Purpose:				Constructor for Account object to be used in the 
-						FleaBay database.
+Purpose:			Constructor for Account object to be used in the 
+				FleaBay database.
 In Parameters:			N/A
 Out Parameters:			N/A
-Version:				1.0
-Author:					Victor Fernandes
+Version:			1.0
+Author:				Victor Fernandes
 ******************************************************************************/
 Account::Account(){
 	numItems = 0;
@@ -39,13 +39,13 @@ Account::Account(){
 
 /******************************************************************************
 Function Name:			Account::Account()
-Purpose:				Constructor for the Account object to be used with its
-						respective Account object that takes in parameters for
-						creation.
+Purpose:			Constructor for the Account object to be used with its
+				respective Account object that takes in parameters for
+				creation.
 In Parameters:			char*, char*
 Out Parameters:			N/A
-Version:				1.0
-Author:					Victor Fernandes
+Version:			1.0
+Author:				Victor Fernandes
 ******************************************************************************/
 Account::Account(char* usr, char* passwd){
 	numItems = 0;
@@ -58,11 +58,11 @@ Account::Account(char* usr, char* passwd){
 
 /******************************************************************************
 Function Name:			Account::Account()
-Purpose:				Copy constructor for Account
+Purpose:			Copy constructor for Account
 In Parameters:			Account&
 Out Parameters:			N/A
-Version:				1.0
-Author:					Victor Fernandes
+Version:			1.0
+Author:				Victor Fernandes
 ******************************************************************************/
 Account::Account(Account& obj) {
 	this->numItems = obj.numItems;
@@ -85,11 +85,11 @@ Account::Account(Account& obj) {
 
 /******************************************************************************
 Function Name:			Account::getPassWord()
-Purpose:				Return a reference to the PassWord data member
+Purpose:			Return a reference to the PassWord data member
 In Parameters:			N/A
 Out Parameters:			char*&
-Version:				1.0
-Author:					Victor Fernandes
+Version:			1.0
+Author:				Victor Fernandes
 ******************************************************************************/
 char*& Account::getPassWord() {
 	return PassWord;
@@ -97,11 +97,11 @@ char*& Account::getPassWord() {
 
 /******************************************************************************
 Function Name:			operator<<
-Purpose:				Overloaded << operator for std::ostream
+Purpose:			Overloaded << operator for std::ostream
 In Parameters:			ostream&, Account&
 Out Parameters:			ostream&
-Version:				1.0
-Author:					Victor Fernandes
+Version:			1.0
+Author:				Victor Fernandes
 ******************************************************************************/
 ostream& operator<<(ostream& os, Account& a){
 	for (unsigned int i = 0; i < a.getnumItems(); i++){
@@ -112,14 +112,14 @@ ostream& operator<<(ostream& os, Account& a){
 
 /******************************************************************************
 Function Name:			Account::AddItem()
-Purpose:				Prompts the user to add multiple items to the Account's
-						Item storage list. It checks for proper price value and
-						has an option to abort the process if desired. It also 
-						lets the user change their password.
+Purpose:			Prompts the user to add multiple items to the Account's
+				Item storage list. It checks for proper price value and
+				has an option to abort the process if desired. It also 
+				lets the user change their password.
 In Parameters:			N/A
 Out Parameters:			N/A
-Version:				1.1
-Author:					Victor Fernandes
+Version:			1.1
+Author:				Victor Fernandes
 ******************************************************************************/
 void Account::AddItem(){
 
@@ -231,13 +231,13 @@ void Account::AddItem(){
 
 /******************************************************************************
 Function Name:			Account::~Account()
-Purpose:				Destructor for the Account object. It is called when
-						the parent class, FleaBay, deletes it from the account
-						list. 
+Purpose:			Destructor for the Account object. It is called when
+				the parent class, FleaBay, deletes it from the account
+				list. 
 In Parameters:			N/A
 Out Parameters:			N/A
-Version:				1.0
-Author:					Victor Fernandes
+Version:			1.0
+Author:				Victor Fernandes
 ******************************************************************************/
 Account::~Account(){
 	if (numItems > 0) {
@@ -246,7 +246,7 @@ Account::~Account(){
 		}
 		delete[] items;
 	}
-	delete ID;
-	delete PassWord;
+	delete[] ID;
+	delete[] PassWord;
 }
 
